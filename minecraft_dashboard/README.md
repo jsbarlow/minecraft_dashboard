@@ -1,36 +1,69 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Minecraft Dashboard
 
-## Getting Started
+## Description
 
-First, run the development server:
+The goal of this project is to create a dashboard to interact with the mod ComputerCraft. The intent is for a user to be able to connect to an instance of the game through this dashboard and control aspects of their computers and turtles from it. Computer networks and commands will be configured in-game, and will connect to the dashboard through a websocket. The majority of the Minecraft related code will be written and configured on the game's side. This dashboard needs to have the capability to connect to the game, send messages to the game, and eventually, to allow the user to customize their dashboard to display data sent from the game and create buttons to send commands to the game.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+# Running tests
+
+This command builds a docker image with the code of this repository and runs the repository's tests
+
+```sh
+./build_docker.sh my_app
+docker run -t my_app ./run_tests.sh
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+```
+[+] Building 0.1s (10/10) FINISHED                                                                   docker:default
+ => [internal] load build definition from Dockerfile                                                           0.0s
+ => => transferring dockerfile: 226B                                                                           0.0s
+ => [internal] load metadata for docker.io/library/node:22.14.0-alpine3.21@sha256:9bef0ef1e268f60627da9ba7d76  0.0s
+ => [internal] load .dockerignore                                                                              0.0s
+ => => transferring context: 154B                                                                              0.0s
+ => [1/5] FROM docker.io/library/node:22.14.0-alpine3.21@sha256:9bef0ef1e268f60627da9ba7d7605e8831d5b56ad0748  0.0s
+ => [internal] load build context                                                                              0.0s
+ => => transferring context: 1.07kB                                                                            0.0s
+ => CACHED [2/5] WORKDIR /app                                                                                  0.0s
+ => CACHED [3/5] COPY package.json package-lock.json .                                                         0.0s
+ => CACHED [4/5] RUN npm install                                                                               0.0s
+ => CACHED [5/5] COPY . .                                                                                      0.0s
+ => exporting to image                                                                                         0.0s
+ => => exporting layers                                                                                        0.0s
+ => => writing image sha256:80007dbaeba9813527f4a4e663e6d773256f6e42f1b3c3fdf713fe45b4897c2f                   0.0s
+ => => naming to docker.io/library/my_app                                                                      0.0s
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+> my-react-app@0.0.0 test
+> vitest
 
-## Learn More
 
-To learn more about Next.js, take a look at the following resources:
+ RUN  v3.1.1 /app
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+ ✓ src/App.test.tsx (2 tests) 176ms
+ ✓ test/basic.test.ts (3 tests) 6ms
+ ✓ test/suite.test.ts (3 tests) 7ms
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+ Test Files  3 passed (3)
+      Tests  8 passed (8)
+   Start at  22:08:27
+   Duration  3.74s (transform 93ms, setup 361ms, collect 282ms, tests 190ms, environment 1.95s, prepare 392ms)
+```
 
-## Deploy on Vercel
+# Running a specific test
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+This example runs all tests matching the name "basic":
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```sh
+./build_docker.sh my_app
+docker run -t my_app ./run_tests.sh basic
+```
+
+
+# Running a vite dev server
+
+Run this command to enable hot reloading via docker.
+
+```sh
+./build_docker.sh my_app
+docker run --network=host -v .:/app -it my_app npm exec vite dev --host
+```
