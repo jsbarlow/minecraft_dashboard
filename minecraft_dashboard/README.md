@@ -4,66 +4,6 @@
 
 The goal of this project is to create a dashboard to interact with the mod ComputerCraft. The intent is for a user to be able to connect to an instance of the game through this dashboard and control aspects of their computers and turtles from it. Computer networks and commands will be configured in-game, and will connect to the dashboard through a websocket. The majority of the Minecraft related code will be written and configured on the game's side. This dashboard needs to have the capability to connect to the game, send messages to the game, and eventually, to allow the user to customize their dashboard to display data sent from the game and create buttons to send commands to the game.
 
-# Running tests
+I want to send data back and forth as json objects. The intent would be to allow the in-game application to be able to send a json outlining api functions and for the program to allow a user to map these functions to custom ui.
 
-This command builds a docker image with the code of this repository and runs the repository's tests
-
-```sh
-./build_docker.sh my_app
-docker run -t my_app ./run_tests.sh
-```
-
-```
-[+] Building 0.1s (10/10) FINISHED                                                                   docker:default
- => [internal] load build definition from Dockerfile                                                           0.0s
- => => transferring dockerfile: 226B                                                                           0.0s
- => [internal] load metadata for docker.io/library/node:22.14.0-alpine3.21@sha256:9bef0ef1e268f60627da9ba7d76  0.0s
- => [internal] load .dockerignore                                                                              0.0s
- => => transferring context: 154B                                                                              0.0s
- => [1/5] FROM docker.io/library/node:22.14.0-alpine3.21@sha256:9bef0ef1e268f60627da9ba7d7605e8831d5b56ad0748  0.0s
- => [internal] load build context                                                                              0.0s
- => => transferring context: 1.07kB                                                                            0.0s
- => CACHED [2/5] WORKDIR /app                                                                                  0.0s
- => CACHED [3/5] COPY package.json package-lock.json .                                                         0.0s
- => CACHED [4/5] RUN npm install                                                                               0.0s
- => CACHED [5/5] COPY . .                                                                                      0.0s
- => exporting to image                                                                                         0.0s
- => => exporting layers                                                                                        0.0s
- => => writing image sha256:80007dbaeba9813527f4a4e663e6d773256f6e42f1b3c3fdf713fe45b4897c2f                   0.0s
- => => naming to docker.io/library/my_app                                                                      0.0s
-
-
-> my-react-app@0.0.0 test
-> vitest
-
-
- RUN  v3.1.1 /app
-
- ✓ src/App.test.tsx (2 tests) 176ms
- ✓ test/basic.test.ts (3 tests) 6ms
- ✓ test/suite.test.ts (3 tests) 7ms
-
- Test Files  3 passed (3)
-      Tests  8 passed (8)
-   Start at  22:08:27
-   Duration  3.74s (transform 93ms, setup 361ms, collect 282ms, tests 190ms, environment 1.95s, prepare 392ms)
-```
-
-# Running a specific test
-
-This example runs all tests matching the name "basic":
-
-```sh
-./build_docker.sh my_app
-docker run -t my_app ./run_tests.sh basic
-```
-
-
-# Running a vite dev server
-
-Run this command to enable hot reloading via docker.
-
-```sh
-./build_docker.sh my_app
-docker run --network=host -v .:/app -it my_app npm exec vite dev --host
-```
+The main display needs to be a basic chat that displays priority messages from the in-game computer.

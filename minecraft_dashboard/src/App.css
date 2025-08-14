@@ -1,42 +1,469 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+/* 
+  Dashboard Layout Styles
+  Creating a professional ComputerCraft-themed dashboard interface
+*/
+
+/* Main dashboard container using CSS Grid for layout */
+.dashboard {
+  height: 100vh; /* Full viewport height for app-like experience */
+  display: grid;
+  grid-template-rows: auto 1fr; /* Header takes minimal space, content takes the rest */
+  background-color: #1a1a1a; /* Dark theme to match ComputerCraft's aesthetic */
+  color: #ffffff;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+/* Header section styling */
+.dashboard-header {
+  background-color: #2d2d2d; /* Slightly lighter than main background */
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid #646cff; /* Accent border matching Vite's theme */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); /* Subtle depth */
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.dashboard-header h1 {
+  margin: 0;
+  font-size: 1.8rem;
+  color: #61dafb; /* React blue for the title */
+  font-weight: 600;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+/* Connection status indicator */
+.connection-status {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  transition: all 0.3s ease; /* Smooth state transitions */
 }
 
-.card {
-  padding: 2em;
+/* Status indicator dot */
+.status-indicator {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  animation: pulse 2s infinite; /* Subtle animation to draw attention */
 }
 
-.read-the-docs {
+/* Connection state styling */
+.connection-status.connected {
+  background-color: rgba(34, 197, 94, 0.2); /* Green background */
+  color: #22c55e; /* Green text */
+}
+
+.connection-status.connected .status-indicator {
+  background-color: #22c55e;
+}
+
+.connection-status.disconnected {
+  background-color: rgba(239, 68, 68, 0.2); /* Red background */
+  color: #ef4444; /* Red text */
+}
+
+.connection-status.disconnected .status-indicator {
+  background-color: #ef4444;
+}
+
+/* Main content area using CSS Grid */
+.dashboard-content {
+  display: grid;
+  grid-template-columns: 300px 1fr; /* Fixed sidebar width, flexible main content */
+  height: 100%;
+  overflow: hidden; /* Prevent scrolling on main container */
+}
+
+/* Sidebar styling */
+.dashboard-sidebar {
+  background-color: #2d2d2d;
+  border-right: 1px solid #404040;
+  padding: 1.5rem;
+  overflow-y: auto; /* Allow scrolling if content overflows */
+}
+
+.sidebar-section {
+  margin-bottom: 2rem;
+}
+
+.sidebar-section h3 {
+  margin: 0 0 1rem 0;
+  color: #61dafb;
+  font-size: 1.1rem;
+  border-bottom: 1px solid #404040;
+  padding-bottom: 0.5rem;
+}
+
+/* Button styling */
+.connect-btn {
+  width: 100%;
+  padding: 0.75rem;
+  background-color: #646cff;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.connect-btn:hover:not(:disabled) {
+  background-color: #535bf2;
+  transform: translateY(-1px); /* Subtle lift effect */
+}
+
+.connect-btn:disabled {
+  background-color: #404040;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* Placeholder text styling */
+.placeholder-text {
   color: #888;
+  font-style: italic;
+  font-size: 0.9rem;
+  line-height: 1.4;
+  margin: 0;
 }
+
+/* Main content area */
+.dashboard-main {
+  background-color: #1a1a1a;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* Chat container - this is the main feature per the README */
+.chat-container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  margin: 1.5rem;
+  background-color: #2d2d2d;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid #404040;
+}
+
+/* Chat header */
+.chat-header {
+  background-color: #383838;
+  padding: 1rem 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #404040;
+}
+
+.chat-header h2 {
+  margin: 0;
+  color: #61dafb;
+  font-size: 1.3rem;
+}
+
+.message-count {
+  background-color: #646cff;
+  color: white;
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+/* Messages area */
+.chat-messages {
+  flex: 1;
+  overflow-y: auto; /* Scrollable message history */
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+/* Individual message styling */
+.chat-message {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 0.75rem;
+  background-color: #383838;
+  border-radius: 6px;
+  border-left: 3px solid #646cff; /* Accent border */
+  transition: all 0.2s ease;
+}
+
+/* Priority-based message styling */
+.chat-message.priority-low {
+  border-left-color: #6b7280; /* Gray */
+  background-color: rgba(107, 114, 128, 0.1);
+}
+
+.chat-message.priority-medium {
+  border-left-color: #3b82f6; /* Blue */
+  background-color: rgba(59, 130, 246, 0.1);
+}
+
+.chat-message.priority-high {
+  border-left-color: #f59e0b; /* Amber */
+  background-color: rgba(245, 158, 11, 0.1);
+}
+
+.chat-message.priority-critical {
+  border-left-color: #ef4444; /* Red */
+  background-color: rgba(239, 68, 68, 0.1);
+  animation: criticalPulse 2s infinite;
+}
+
+/* Message header with timestamp, source, and priority */
+.message-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.message-timestamp {
+  font-size: 0.75rem;
+  color: #888;
+  font-weight: 500;
+}
+
+.message-source {
+  font-size: 0.8rem;
+  color: #61dafb;
+  font-weight: 600;
+  background-color: rgba(97, 218, 251, 0.1);
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+}
+
+/* Priority badge styling */
+.priority-badge {
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 0.2rem 0.5rem;
+  border-radius: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.priority-badge.priority-low {
+  background-color: #6b7280;
+  color: #ffffff;
+}
+
+.priority-badge.priority-medium {
+  background-color: #3b82f6;
+  color: #ffffff;
+}
+
+.priority-badge.priority-high {
+  background-color: #f59e0b;
+  color: #000000;
+}
+
+.priority-badge.priority-critical {
+  background-color: #ef4444;
+  color: #ffffff;
+}
+
+.message-text {
+  color: #ffffff;
+  line-height: 1.4;
+  font-size: 0.95rem;
+}
+
+/* Message category styling */
+.message-category {
+  font-size: 0.8rem;
+  color: #a1a1aa;
+  font-style: italic;
+  margin-top: 0.25rem;
+}
+
+/* No messages state */
+.no-messages {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  color: #888;
+  font-style: italic;
+}
+
+/* Chat input area */
+.chat-input {
+  padding: 1rem 1.5rem;
+  background-color: #383838;
+  border-top: 1px solid #404040;
+  display: flex;
+  gap: 0.75rem;
+}
+
+.chat-input input {
+  flex: 1;
+  padding: 0.75rem;
+  background-color: #2d2d2d;
+  border: 1px solid #404040;
+  border-radius: 6px;
+  color: #ffffff;
+  font-size: 0.9rem;
+}
+
+.chat-input input:focus {
+  outline: none;
+  border-color: #646cff;
+  box-shadow: 0 0 0 2px rgba(100, 108, 255, 0.2);
+}
+
+.chat-input input:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.chat-input button {
+  padding: 0.75rem 1.5rem;
+  background-color: #646cff;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.chat-input button:hover:not(:disabled) {
+  background-color: #535bf2;
+}
+
+.chat-input button:disabled {
+  background-color: #404040;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* Input group styling for sidebar */
+.input-group {
+  margin-bottom: 1rem;
+}
+
+.input-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #61dafb;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.url-input {
+  width: 100%;
+  padding: 0.5rem;
+  background-color: #1a1a1a;
+  border: 1px solid #404040;
+  border-radius: 6px;
+  color: #ffffff;
+  font-size: 0.85rem;
+  margin-bottom: 0.75rem;
+}
+
+.url-input:focus {
+  outline: none;
+  border-color: #646cff;
+  box-shadow: 0 0 0 2px rgba(100, 108, 255, 0.2);
+}
+
+.url-input:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Connection details */
+.connection-details {
+  margin-top: 1rem;
+  padding: 0.75rem;
+  background-color: rgba(255, 255, 255, 0.05);
+  border-radius: 6px;
+  border: 1px solid #404040;
+}
+
+.connection-details p {
+  margin: 0.25rem 0;
+  font-size: 0.85rem;
+  color: #cccccc;
+}
+
+.connection-details strong {
+  color: #61dafb;
+}
+
+/* Clear messages button */
+.clear-btn {
+  width: 100%;
+  padding: 0.5rem;
+  background-color: #dc2626;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+}
+
+.clear-btn:hover:not(:disabled) {
+  background-color: #b91c1c;
+  transform: translateY(-1px);
+}
+
+.clear-btn:disabled {
+  background-color: #404040;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* Pulse animation for connection indicator */
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/* Critical message pulse animation */
+@keyframes criticalPulse {
+  0%, 100% {
+    background-color: rgba(239, 68, 68, 0.1);
+  }
+  50% {
+    background-color: rgba(239, 68, 68, 0.2);
+  }
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 768px) {
+  .dashboard-content {
+    grid-template-columns: 1fr; /* Stack sidebar below main content on mobile */
+    grid-template-rows: auto 1fr;
+  }
+  
+  .dashboard-sidebar {
+    border-right: none;
+    border-bottom: 1px solid #404040;
+  }
+  
+  .dashboard-header {
+    padding: 1rem;
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
+  }
+}
+
